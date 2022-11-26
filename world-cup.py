@@ -1,5 +1,7 @@
 #!/bin/env python
 
+import json
+
 groups = [
     'A',
     'B',
@@ -17,11 +19,34 @@ games = { key : list() for key in groups };
 #------------------------------------------------------------
 ######################### File ##############################
 
-def push():
-    pass
+def push() -> None:
 
-def get():
-    pass
+    global cup, games;
+
+    try:
+
+        with open('data.json', 'r') as fil:
+        
+            data = json.load(fil);
+
+            cup = data['cup'];
+            games = data['games'];
+
+    except FileNotFoundError:
+        return None;
+
+def get() -> None:
+    
+    global cup, games;
+
+    with open('data.json', 'w') as fil:
+
+        data = {
+                'cup' : cup,
+                'games' : games,
+            };
+
+        json.dump(data, fil);
 
 #------------------------------------------------------------
 ########################## Functions ########################
@@ -245,6 +270,8 @@ def print_menu() -> None:
     print('5 → Sair');
 
 def main() -> int:
+
+    get();                                  # Isso carrega os dados do arquivo, caso o arquivo exista
 
     while True:
         print_menu();
