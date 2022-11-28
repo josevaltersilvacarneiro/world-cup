@@ -57,11 +57,11 @@ def get_amount(name : str = 'equipes') -> int:
 
     return int(amount);
 
-def get_option(begin, end) -> int:
+def get_option(options : list = []) -> int:
     
     while (
             not ( option := input('Escolha uma opção do menu: ') ).isdecimal() or 
-            not begin <= ( option := int(option) ) <= end
+            option not in options
         ): pass
 
     return option;
@@ -98,9 +98,6 @@ def register_teams() -> None:
         
         group = get_group();
 
-        if len(cup[group]) == 4:
-            continue;
-
         team = get_team(group);
 
         cup[group].append(team);
@@ -117,13 +114,13 @@ def register_game() -> None:
     amount_of_goals_team_one = get_amount('gols da equipe 1');
     amount_of_goals_team_two = get_amount('gols da equipe 2');
 
-    game = [team_one, team_two, amount_of_goals_team_one, amount_of_goals_team_two];
+    game = (team_one, team_two, amount_of_goals_team_one, amount_of_goals_team_two);
 
     games[group].append(game);
 
-def register_games() -> None:
+def register_games(max_amount : int = 1) -> None:
     
-    amount_of_games = get_amount('jogos');
+    while ( amount_of_games := get_amount('jogos') ) > max_amount: pass
 
     for i in range(amount_of_games):
 
