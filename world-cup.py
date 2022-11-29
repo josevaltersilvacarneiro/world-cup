@@ -57,11 +57,11 @@ def get_amount(name : str = 'equipes') -> int:
 
     return int(amount);
 
-def get_option(options : list = []) -> int:
+def get_option(options : list = [5]) -> int:
     
     while (
             not ( option := input('Escolha uma opção do menu: ') ).isdecimal() or 
-            option not in options
+            ( option := int(option) ) not in options
         ): pass
 
     return option;
@@ -88,39 +88,56 @@ def get_team(group : str, confirm : bool = True) -> str:
 #------------------------------------------------------------
 ######################## Register ###########################
 
-def register_teams() -> None:
+def register_team() -> None:
 
     global cup;
-    
-    amount_of_teams = get_amount();
+
+    while cup[( group := get_group() )].__len__() > 3: continue
+
+    team = get_team(group);
+
+    cup[group].append(team);
+
+def register_teams() -> None:
+
+    max_amount : int = number_of_teams_to_register();
+
+    while ( amount_of_teams := get_amount() ) > max_amount:
+        print(f'Faltam apenas {max_amount} equipes a serem cadastradas');
 
     for i in range(amount_of_teams):
         
-        group = get_group();
+        register_team();
 
-        team = get_team(group);
-
-        cup[group].append(team);
-    
 def register_game() -> None:
 
     global games;
 
-    group = get_group();
+    while games[( group := get_group(False) )].__len__() == 6:
+        print('Todos os jogos deste grupo já foram cadastrados');
     
-    team_one = get_team(group, False);
-    team_two = get_team(group, False);
+    while (
+        ( team_one := get_team(group, False) ) == ( team_two := get_team(group, False) )
+            ): print('As equipes precisam ser distintas');
 
     amount_of_goals_team_one = get_amount('gols da equipe 1');
     amount_of_goals_team_two = get_amount('gols da equipe 2');
 
-    game = (team_one, team_two, amount_of_goals_team_one, amount_of_goals_team_two);
+    game = (
+            team_one,
+            team_two,
+            amount_of_goals_team_one,
+            amount_of_goals_team_two,
+        );
 
     games[group].append(game);
 
-def register_games(max_amount : int = 1) -> None:
+def register_games() -> None:
     
-    while ( amount_of_games := get_amount('jogos') ) > max_amount: pass
+    max_amount : int = number_of_names_to_play();
+
+    while ( amount_of_games := get_amount('jogos') ) > max_amount:
+        print(f'Faltam apenas {max_amount} jogos a serem disputados');
 
     for i in range(amount_of_games):
 
@@ -232,11 +249,15 @@ def delete_game() -> None:
                     games.pop(i);
                     break;
 
+        else:
+            print('O jogo que você está tentando excluir não existe');
+
 def delete_registration() -> None:
     
     print('1 → Deletar equipe');
     print('2 → Deletar jogo');
-    option = get_option(1, 2);
+
+    option = get_option([1, 2]);
 
     if option == 1:
         delete_team();
@@ -320,6 +341,41 @@ def all_registered() -> bool:
 
     return all_teams_registered() and all_games_registered();
 
+def none_registered() -> bool:
+
+    global cup;
+
+    for group in cup.values():
+
+        if group:
+            return False;
+
+    return True;
+
+def number_of_teams_to_register() -> int:
+
+    global cup;
+
+    number_of_teams_registered : int = 0;
+
+    for group in games:
+
+        number_of_teams_registered += len(group);
+
+    return 8 * 4 - number_of_teams_registered;
+
+def number_of_games_to_play() -> int:
+
+    global games;
+
+    number_of_games_played : int = 0;
+
+    for group in games:
+
+        number_of_games_played += len(group);
+
+    return 8 * 6 - number_of_games_played;
+
 #-----------------------------------------------------------#
 ########################## Print ############################
 
@@ -382,13 +438,16 @@ def main() -> int:
 
         if all_registered():
             print_menu(True);
-            option = get_option(3, 8);
+            option = get_option(range(3, 9));
         elif all_teams_registered():
             print_menu(True);
-            option = get_option(2, 8);
+            option = get_option(range(2, 9));
+        elif none_registered():
+            print_menu();
+            option = get_option([1, 5])
         else:
             print_menu();
-            option = get_option(1, 5);
+            option = get_option(range(1, 6));
 
         if option == 1:
             register_teams();
