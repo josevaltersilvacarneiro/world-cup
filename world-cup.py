@@ -1,6 +1,7 @@
 #!/bin/env python
 
-import json
+from file import *
+from register import *
 
 groups = [
     'A',
@@ -15,133 +16,6 @@ groups = [
 
 cup = { key : list() for key in groups };
 games = { key : list() for key in groups };
-
-#------------------------------------------------------------
-######################### File ##############################
-
-def get() -> None:
-
-    global cup, games;
-
-    try:
-
-        with open('data.json', 'r') as fil:
-        
-            data = json.load(fil);
-
-            cup = data['cup'];
-            games = data['games'];
-
-    except FileNotFoundError:
-        return None;
-
-def push() -> None:
-    
-    global cup, games;
-
-    with open('data.json', 'w') as fil:
-
-        data = {
-                'cup' : cup,
-                'games' : games,
-            };
-
-        json.dump(data, fil);
-
-#------------------------------------------------------------
-########################## Functions ########################
-
-def get_amount(name : str = 'equipes') -> int:
-
-    while not ( amount := input(f'Quantidade de {name}: ') ).isdecimal(): pass
-
-    return int(amount);
-
-def get_option(options : list = [5]) -> int:
-    
-    while (
-            not ( option := input('Escolha uma opção do menu: ') ).isdecimal() or 
-            ( option := int(option) ) not in options
-        ): pass
-
-    return option;
-
-def get_group() -> str:
-
-    global groups;
-
-    while ( group := input(f'Digite o grupo: ').upper() ) not in groups: pass
-
-    return group;
-
-def get_team(group : str, confirm : bool = True) -> str:
-
-    global cup;
-
-    if confirm:
-        while ( team := input(f'Nome da seleção: ').title() ) in cup[group]: pass
-    else:
-        while ( team := input(f'Nome da seleção: ').title() ) not in cup[group]: pass
-
-    return team
-
-#------------------------------------------------------------
-######################## Register ###########################
-
-def register_team() -> None:
-
-    global cup;
-
-    while cup[( group := get_group() )].__len__() > 3: continue
-
-    team = get_team(group);
-
-    cup[group].append(team);
-
-def register_teams() -> None:
-
-    max_amount : int = number_of_teams_to_register();
-
-    while ( amount_of_teams := get_amount() ) > max_amount:
-        print(f'Faltam apenas {max_amount} equipes a serem cadastradas');
-
-    for i in range(amount_of_teams):
-        
-        register_team();
-
-def register_game() -> None:
-
-    global games;
-
-    while games[( group := get_group(False) )].__len__() == 6:
-        print('Todos os jogos deste grupo já foram cadastrados');
-    
-    while (
-        ( team_one := get_team(group, False) ) == ( team_two := get_team(group, False) )
-            ): print('As equipes precisam ser distintas');
-
-    amount_of_goals_team_one = get_amount('gols da equipe 1');
-    amount_of_goals_team_two = get_amount('gols da equipe 2');
-
-    game = (
-            team_one,
-            team_two,
-            amount_of_goals_team_one,
-            amount_of_goals_team_two,
-        );
-
-    games[group].append(game);
-
-def register_games() -> None:
-    
-    max_amount : int = number_of_names_to_play();
-
-    while ( amount_of_games := get_amount('jogos') ) > max_amount:
-        print(f'Faltam apenas {max_amount} jogos a serem disputados');
-
-    for i in range(amount_of_games):
-
-        register_game();
 
 #------------------------------------------------------------
 ####################### Edit Registration ###################
@@ -352,30 +226,6 @@ def none_registered() -> bool:
 
     return True;
 
-def number_of_teams_to_register() -> int:
-
-    global cup;
-
-    number_of_teams_registered : int = 0;
-
-    for group in games:
-
-        number_of_teams_registered += len(group);
-
-    return 8 * 4 - number_of_teams_registered;
-
-def number_of_games_to_play() -> int:
-
-    global games;
-
-    number_of_games_played : int = 0;
-
-    for group in games:
-
-        number_of_games_played += len(group);
-
-    return 8 * 6 - number_of_games_played;
-
 #-----------------------------------------------------------#
 ########################## Print ############################
 
@@ -432,7 +282,9 @@ def print_menu(all_registered : bool = False) -> None:
 
 def main() -> int:
 
-    get();                                   # Isso carrega os dados do arquivo, caso o arquivo exista
+    global cup, games;
+
+    cup, games = get();            # Isso carrega os dados do arquivo, caso o arquivo exista
 
     while True:
 
@@ -468,7 +320,7 @@ def main() -> int:
 
         update();
 
-    push();                                  # Isso empurra os dados do programa para o arquivo
+    push(cup, games);                                  # Isso empurra os dados do programa para o arquivo
 
     return 0;
 
