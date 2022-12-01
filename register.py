@@ -14,20 +14,18 @@ def _register_team(cup : dict) -> None:
 
     cup[group].append(team);
 
-def _register_game(games : dict) -> None:
+def _register_game(cup : dict, games : dict) -> None:
 
     while cup[( group := get_group(False) )].__len__() == 6:
         print('All games in this group already were registered');
 
-    while (
-            ( team_one := get_team(group, False) ) == ( team_two := get_team(group, False) )
-        ): print('The teams must be different');
+    first_team, second_team = get_two_different_teams(cup, group, False);
 
     num_of_goals_team_one, num_of_goals_team_two = get_amount('goals for team 1'), get_amount('goals for team 2');
 
     game = (
-            team_one,
-            team_two,
+            first_team,
+            second_team,
             num_of_goals_team_one,
             num_of_goals_team_two,
         );

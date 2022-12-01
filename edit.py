@@ -5,16 +5,9 @@ for editing the teams and the games.
 
 from utils import (
             get_amount, get_option
-            get_group, get_team, get_two_different_teams,
-            is_any_team_registered, is_any_game_registered
+            get_group, get_non_empty_group,
+            get_team, get_two_different_teams,
         );
-
-def _get_group(cup : dict) -> str:
-
-    while cup[( group := get_group() )].__len__() == 0:
-        print(f'The group {group} is empty');
-
-    return group;
 
 def _check(message : str) -> bool:
 
@@ -22,9 +15,12 @@ def _check(message : str) -> bool:
 
     return check == 'Y';
 
-def _edit_team(cup : dict, games : dict) -> None:
+#---------------------------------------------------------------------------------#
+####################################### Public ####################################
 
-    group : str = _get_group(cup);
+def edit_team(cup : dict, games : dict) -> None:
+
+    group : str = get_non_empty_group(cup);
 
     team : str = get_team(group, False);
     new_team : str = get_team(group);
@@ -43,9 +39,9 @@ def _edit_team(cup : dict, games : dict) -> None:
         index = cup[group].index(team);
         cup[group][index] = new_team;
 
-def _edit_game(cup : dict, games : dict) -> None:
+def edit_game(cup : dict, games : dict) -> None:
 
-    group : str = _get_group(cup);
+    group : str = get_non_empty_group(games);
 
     first_team, second_team = get_two_different_teams(cup, group, False);
 
@@ -62,26 +58,4 @@ def _edit_game(cup : dict, games : dict) -> None:
 
             if option == 1 or option == 2:
                 game[option + 1] = get_amount(f'goals for team {option}');
-
-#---------------------------------------------------------------------------------#
-####################################### Public ####################################
-
-def edit_registration() -> None:
-
-    options : list = [];
-
-    if is_any_team_registered():
-        print('1 → Edit team');
-        options.append(1);
-    
-    if is_any_game_registered():
-        print('2 → Edit game');
-        options.append(2);
-
-    option = get_option(options);
-
-    if option == 1:
-        _edit_team();
-    elif option == 2:
-        _edit_game();
 

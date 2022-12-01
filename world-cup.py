@@ -1,7 +1,11 @@
 #!/bin/env python
 
-from file import *
-from register import *
+import _utils as ut
+
+from _file import *
+import _register as rg
+import _edit as ed
+import _delete as dl
 
 groups = [
     'A',
@@ -17,69 +21,36 @@ groups = [
 cup = { key : list() for key in groups };
 games = { key : list() for key in groups };
 
-#------------------------------------------------------------
-####################### Edit Registration ###################
+def get_option(operation : str) -> int:
 
-def edit_team() -> None:
-   
-    global cup, games;
+    options : list = [];
 
-    group = get_group();
+    if ut.is_any_team_registered():
+        print(f'1 → {operation.upper()} team');
+        options.append(1);
+    if ut.is_any_game_registered():
+        print(f'2 → {operation.upper()} game');
+        options.append(2);
 
-    team = get_team(group, False);
-    new_team = get_team(group);
+    return ut.get_option(options);
 
-    check = input(f'Você deseja substituir {team} por {new_team}: [S/N]').strip().upper();
+def register() -> None:
 
-    if check == 'S':
-        
-        for game in games[group]:
+    option : int = get_option('register');
 
-            if game[0] == team:
-                game[0] = new_team
-            elif game[1] == team:
-                game[1] = new_team
-
-        cup[group].remove(team)
-        cup[group].append(new_team)
-
-def edit_game() -> None:
-    
-    global games;
-
-    group = get_group();
-    team_one, team_two = get_team(group), get_team(group);
-
-    for game in games[group]:
-
-        if (game[0] == team_one and game[1] == team_two) or (game[0] == team_two and game[1] == team_one):
-            
-            print(f'1 → O nome {team_one} está errado');
-            print(f'2 → O nome {team_two} está errado');
-            print(f'3 → A quantidade de gols de {team_one} está errada');
-            print(f'4 → A quantidade de gols de {team_two} está errada');
-
-            option = get_option(1, 4);
-
-            if option == 1:
-                game[0] = get_team(group);
-            elif option == 2:
-                game[1] = get_team(group);
-            elif option == 3:
-                game[2] = get_amount('gols da equipe 1');
-            elif option == 4:
-                game[3] = get_amount('gols da equipe 2');
+    rg.register_teams() if option == 1 else rg.register_games;
 
 def edit_registration() -> None:
-    
-    print('1 → Editar equipe');
-    print('2 → Editar jogo');
-    option = get_option(1, 2);
 
-    if option == 1:
-        edit_team();
-    else:
-        edit_game();
+    option : int = get_option('edit');
+
+    ed.edit_team() if option == 1 else ed.edit_game;
+
+def delete_registration() -> None:
+
+    option : int = get_option('delete');
+
+    dl.delete_team() if option == 1 else dl.delete_game;
 
 #------------------------------------------------------------
 ######################### Delete ############################
@@ -125,18 +96,6 @@ def delete_game() -> None:
 
         else:
             print('O jogo que você está tentando excluir não existe');
-
-def delete_registration() -> None:
-    
-    print('1 → Deletar equipe');
-    print('2 → Deletar jogo');
-
-    option = get_option([1, 2]);
-
-    if option == 1:
-        delete_team();
-    elif option == 2:
-        delete_game();
 
 #-----------------------------------------------------------#
 ############### All values were registered ##################
