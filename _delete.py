@@ -3,10 +3,16 @@ for deleting the teams and the games.
 
 """
 
+from _utils import (
+            check,
+            get_non_empty_group,
+            get_team, get_two_different_teams
+        );
+
 def delete_team(cup : dict, games : dict) -> None:
 
     group : str = get_non_empty_group(cup);
-    team : str = get_team(group, False);
+    team : str = get_team(cup, group, False);
 
     message : str = f'Do you really want to delete {team} from the group {group}';
 
@@ -21,7 +27,7 @@ def delete_team(cup : dict, games : dict) -> None:
 
 def delete_game(cup : dict, games : dict) -> None:
 
-    group : str = get_non_empty_group(games);
+    group : str = get_non_empty_group(cup);
     first_team, second_team = get_two_different_teams(cup, group, False);
 
     message : str = f'Do you really to delete the game {first_team} vs {second_team}';
