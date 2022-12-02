@@ -11,7 +11,9 @@ from _utils import (
 
 def _register_team(cup : dict) -> None:
 
-    while cup[( group := get_group() )].__len__() > 3:
+    groups : list = cup.keys();
+
+    while cup[( group := get_group(groups) )].__len__() > 3:
         print(f'The group {group} is already complete');
 
     team = get_team(group);
@@ -20,7 +22,9 @@ def _register_team(cup : dict) -> None:
 
 def _register_game(cup : dict, games : dict) -> None:
 
-    while cup[( group := get_group(False) )].__len__() == 6:
+    groups : list = cup.keys();
+
+    while cup[( group := get_group(groups) )].__len__() == 6:
         print('All games in this group already were registered');
 
     first_team, second_team = get_two_different_teams(cup, group, False);
