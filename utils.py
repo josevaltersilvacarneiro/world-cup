@@ -2,9 +2,15 @@
 
 """
 
-def get_amount(name : str) -> int:
+def check(message : str) -> bool:
 
-    while not ( amount := input(f'Number of {name}: ') ).isdecimal():
+    check = input(f'{message}: [y/N]').strip().upper();
+
+    return check == 'Y';
+
+def get_amount(message : str) -> int:
+
+    while not ( amount := input(message) ).isdecimal():
         print(f'{amount} isn\'t a number');
 
     return int(amount);
@@ -12,8 +18,7 @@ def get_amount(name : str) -> int:
 def get_option(options : list) -> int:
 
     while (
-            not ( option := input() ).isdecimal() or
-                ( option := int(option) ) not in options
+            ( option := get_amount('Type your option: ') ) not in options
         ): print(f'{option} isn\'t a valid option');
 
     return option;
