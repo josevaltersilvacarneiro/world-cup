@@ -22,7 +22,19 @@ def get() -> tuple:
             games = data['games'];
 
     except FileNotFoundError:
-        print(f'The file {_FILE} wasn\'t found');
+        groups : list = [
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+            ];
+
+        cup : dict = {group : list() for group in groups};
+        games : dict = {group : list() for group in groups};
 
     return cup, games;
 
