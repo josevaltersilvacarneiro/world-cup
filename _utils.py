@@ -90,11 +90,11 @@ def number_of_games_registered(games : dict) -> int:
 
     num_of_games_registered : int = 0;
 
-    for group in cup.values():
+    for group in games.values():
 
         num_of_games_registered += len(group);
 
-    return num_of_teams_registered;
+    return num_of_games_registered;
 
 def are_all_teams_registered(cup : dict):
 
