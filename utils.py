@@ -2,6 +2,24 @@
 
 """
 
+def _are_all_data_registered(data : dict, max_amount_of_elements : int):
+
+    for element in data.values():
+
+        if len(element) < max_amount_of_elements:
+            return False;
+
+    return True;
+
+def _is_any_data_registered(data : dict):
+
+    for element in data.values():
+
+        if len(element) > 0:
+            return True;
+
+    return False;
+
 def check(message : str) -> bool:
 
     check = input(f'{message}: [y/N]').strip().upper();
@@ -77,3 +95,24 @@ def number_of_games_registered(games : dict) -> int:
         num_of_games_registered += len(group);
 
     return num_of_teams_registered;
+
+def are_all_teams_registered(cup : dict):
+
+    return _are_all_data_registered(cup, 4);
+
+def are_all_games_registered(games : dict):
+
+    return _are_all_data_registered(games, 6);
+
+def is_every_registered(cup : dict, games : dict):
+
+    return are_all_teams_registered(cup) and are_all_games_registered(games);
+
+def is_any_team_registered(cup : dict):
+
+    return _is_any_data_registered(cup);
+
+def is_any_game_registered(games : dict):
+
+    return _is_any_data_registered(games);
+
