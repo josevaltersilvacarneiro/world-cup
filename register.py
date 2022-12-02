@@ -3,7 +3,11 @@ for registering the teams and the games.
 
 """
 
-from utils import get_amount, get_group, get_team, number_of_teams_registered, number_of_games_registered;
+from _utils import (
+            get_amount,
+            get_group,
+            get_team, number_of_teams_registered, number_of_games_registered
+        );
 
 def _register_team(cup : dict) -> None:
 
@@ -70,7 +74,7 @@ def register_teams(cup : dict) -> None:
     
     max_amount : int = _number_of_teams_to_register(cup);
 
-    while ( amount_of_teams := get_amount('teams') ) > max_amount:
+    while ( amount_of_teams := get_amount('Number of teams: ') ) > max_amount:
         print(f'Only {max_amount} teams left to register');
 
     for i in range(amount_of_teams):
@@ -80,7 +84,7 @@ def register_games(cup : dict, games : dict) -> None:
     
     max_amount : int = _number_of_games_to_register(cup, games);
 
-    while ( amount_of_games := get_amount('games') ) > max_amount:
+    while ( amount_of_games := get_amount('Number of games: ') ) > max_amount:
         print(f'Only {max_amount} games left to register');
     
     for i in range(amount_of_games):
