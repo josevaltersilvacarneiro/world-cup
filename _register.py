@@ -6,7 +6,8 @@ for registering the teams and the games.
 from _utils import (
             get_amount,
             get_group,
-            get_team, number_of_teams_registered, number_of_games_registered
+            get_team, get_two_different_teams,
+            number_of_teams_registered, number_of_games_registered
         );
 
 def _register_team(cup : dict) -> None:
@@ -16,7 +17,7 @@ def _register_team(cup : dict) -> None:
     while cup[( group := get_group(groups) )].__len__() > 3:
         print(f'The group {group} is already complete');
 
-    team = get_team(group);
+    team = get_team(cup, group);
 
     cup[group].append(team);
 
@@ -31,12 +32,12 @@ def _register_game(cup : dict, games : dict) -> None:
 
     num_of_goals_team_one, num_of_goals_team_two = get_amount('goals for team 1'), get_amount('goals for team 2');
 
-    game = (
+    game = [
             first_team,
             second_team,
             num_of_goals_team_one,
             num_of_goals_team_two,
-        );
+        ];
 
     games[group].append(game);
 
@@ -92,5 +93,5 @@ def register_games(cup : dict, games : dict) -> None:
         print(f'Only {max_amount} games left to register');
     
     for i in range(amount_of_games):
-        _register_game(games);
+        _register_game(cup, games);
 
