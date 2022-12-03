@@ -18,7 +18,7 @@ def delete_team(cup : dict, games : dict) -> None:
 
     if check(message):
 
-        for i, game in games[group]:
+        for i, game in enumerate(games[group]):
 
             if game[0] == team or game[1] == team:
                 games[group].pop(i);
@@ -34,7 +34,7 @@ def delete_game(cup : dict, games : dict) -> None:
 
     if check(message):
 
-        for i, game in games[group]:
+        for i, game in enumerate(games[group]):
             
             if (
                 (game[0] == first_team and game[1] == second_team) or
