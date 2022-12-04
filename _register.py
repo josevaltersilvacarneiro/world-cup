@@ -25,12 +25,19 @@ def _register_game(cup : dict, games : dict) -> None:
 
     groups : list = cup.keys();
 
-    while cup[( group := get_group(groups) )].__len__() == 6:
-        print('All games in this group already were registered');
+    while True:
+
+        group : str = get_group(groups);
+
+        if games[group].__len__() == _max_number_of_games_registered_in_the_group(cup, group):
+            print('All games in this group already were registered');
+        else:
+            break;
 
     first_team, second_team = get_two_different_teams(cup, group, False);
 
-    num_of_goals_team_one, num_of_goals_team_two = get_amount('goals for team 1'), get_amount('goals for team 2');
+    num_of_goals_team_one : int = get_amount('Number of goals for team 1: ');
+    num_of_goals_team_two : int = get_amount('Number of goals for team 2: ');
 
     game = [
             first_team,
@@ -45,6 +52,15 @@ def _number_of_teams_to_register(cup : dict) -> int:
     
     return 8 * 4 - number_of_teams_registered(cup);
 
+def _max_number_of_games_registered_in_the_group(cup : dict, group : str) -> int:
+
+    # Fundamental Counting Theorem
+
+    num_of_teams_registered_in_the_group : int = len(cup[group]);
+    num_of_possible_games = num_of_teams_registered_in_the_group * (num_of_teams_registered_in_the_group - 1) / 2;
+
+    return num_of_possible_games;
+
 def _max_number_of_games_registered(cup : dict) -> int:
     """Using a repetiton loop, all groups looped.
     By means of The Fundamental Counting Theorem,
@@ -57,14 +73,8 @@ def _max_number_of_games_registered(cup : dict) -> int:
 
     max_num_of_games_registered : int = 0;
 
-    for group in cup.values():
-
-        num_of_teams_registered = len(group);
-
-        # Fundamental Counting Theorem
-        num_of_possible_games = num_of_teams_registered * (num_of_teams_registered - 1) / 2;
-
-        max_num_of_games_registered += num_of_possible_games;
+    for group in cup.keys():
+        max_num_of_games_registered += _max_number_of_games_registered_in_the_group(cup, group);
 
     return max_num_of_games_registered;
 
