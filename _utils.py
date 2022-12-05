@@ -99,8 +99,8 @@ def get_date() -> tuple:
 
     while True:
         try:
-            game_date = date(_YEAR, input('Month: '), input('Day: '));
-            game_time = time(input('Hours: '), input('Minutes: '), 0);
+            game_date = date(_YEAR, get_amount('Month: '), get_amount('Day: '));
+            game_time = time(get_amount('Hours: '), get_amount('Minutes: '), 0);
         except ValueError:
             print('Invalid date. Try again!');
         else:
