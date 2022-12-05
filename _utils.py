@@ -2,7 +2,16 @@
 
 """
 
-_YEAR = 2022;
+_YEAR : int = 2022;
+
+def _get_all_teams_registered(cup : dict) -> list:
+
+    teams : list = [];
+
+    for group in cup.values():
+        teams.extend(group)
+
+    return teams;
 
 def _are_all_data_registered(data : dict, max_amount_of_elements : int):
 
@@ -61,8 +70,10 @@ def get_non_empty_group(data : dict) -> str:
 
 def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Type the team: ') -> str:
 
+    all_teams_registered : list = _get_all_teams_registered(cup);
+
     if confirm:
-        while ( team := input(message).title() ) in cup[group]:
+        while ( team := input(message).title() ) in all_teams_registered:
             print(f'The team {team} is already registered');
     else:
         while ( team := input(message) ) not in cup[group]:
