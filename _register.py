@@ -36,8 +36,8 @@ def _register_game(cup : dict, games : dict) -> None:
 
     first_team, second_team = get_two_different_teams(cup, group, False);
 
-    num_of_goals_team_one : int = get_amount('Number of goals for team 1: ');
-    num_of_goals_team_two : int = get_amount('Number of goals for team 2: ');
+    num_of_goals_team_one : int = get_amount(f'Number of goals for {first_team}: ');
+    num_of_goals_team_two : int = get_amount(f'Number of goals for {second_team}: ');
 
     game = [
             first_team,
