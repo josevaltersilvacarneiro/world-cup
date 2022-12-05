@@ -30,8 +30,10 @@ def _register_game(cup : dict, games : dict) -> None:
 
         group : str = get_group(groups);
 
-        if games[group].__len__() == _max_number_of_games_registered_in_the_group(cup, group):
+        if games[group].__len__() == 6:
             print('All games in this group already were registered');
+        if games[group].__len__() == _max_number_of_games_registered_in_the_group(cup, group):
+            print('To register more games in this group, add more teams!');
         else:
             break;
 
