@@ -2,6 +2,8 @@
 
 """
 
+_YEAR = 2022;
+
 def _are_all_data_registered(data : dict, max_amount_of_elements : int):
 
     for element in data.values():
@@ -57,7 +59,7 @@ def get_non_empty_group(data : dict) -> str:
 
     return group;
 
-def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Type the team') -> str:
+def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Type the team: ') -> str:
 
     if confirm:
         while ( team := input(message).title() ) in cup[group]:
@@ -77,6 +79,23 @@ def get_two_different_teams(cup : dict, group : str, confirm : bool = True) -> t
         ): print('The teams must be different');
 
     return first_team, second_team;
+
+def get_date() -> tuple:
+
+    global _YEAR;
+
+    while True:
+        try:
+            game_date = date(_YEAR, input('Month: '), input('Day: '));
+            game_time = time(input('Hours: '), input('Minutes: '), 0);
+        except ValueError:
+            print('Invalid date. Try again!');
+        else:
+            return game_time.hour, game_time.minute, game_date.day, game_date.month;
+
+def get_place() -> str:
+
+    return input('Place: ');
 
 def number_of_teams_registered(cup : dict) -> int:
 
