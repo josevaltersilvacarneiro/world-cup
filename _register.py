@@ -7,7 +7,8 @@ from _utils import (
             get_amount,
             get_group,
             get_team, get_two_different_teams,
-            number_of_teams_registered, number_of_games_registered
+            get_date, get_place,
+            number_of_teams_registered, number_of_games_registered,
         );
 
 def _register_team(cup : dict) -> None:
@@ -39,11 +40,15 @@ def _register_game(cup : dict, games : dict) -> None:
     num_of_goals_team_one : int = get_amount(f'Number of goals for {first_team}: ');
     num_of_goals_team_two : int = get_amount(f'Number of goals for {second_team}: ');
 
+    time = get_date();
+
     game = [
             first_team,
             second_team,
             num_of_goals_team_one,
             num_of_goals_team_two,
+            f'{time[0]}:{time[1]}, {time[2]}/{time[3]}',
+            get_place(),
         ];
 
     games[group].append(game);
