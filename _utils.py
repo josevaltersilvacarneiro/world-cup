@@ -57,13 +57,13 @@ def get_non_empty_group(data : dict) -> str:
 
     return group;
 
-def get_team(cup : dict, group : str, confirm : bool = True) -> str:
+def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Type the team') -> str:
 
     if confirm:
-        while ( team := input('Type the team: ').title().replace('Do', 'do') ) in cup[group]:
-            print(f'The team {team} already in group {group}');
+        while ( team := input(message).title() ) in cup[group]:
+            print(f'The team {team} is already registered');
     else:
-        while ( team := input('Type the team: ') ) not in cup[group]:
+        while ( team := input(message) ) not in cup[group]:
             print(f'The team {team} isn\'t in group {group}');
 
     return team;
@@ -71,7 +71,9 @@ def get_team(cup : dict, group : str, confirm : bool = True) -> str:
 def get_two_different_teams(cup : dict, group : str, confirm : bool = True) -> tuple:
     
     while (
-            ( first_team := get_team(cup, group, confirm) ) == ( second_team := get_team(cup, group, confirm) )
+            ( first_team := get_team(cup, group, confirm, 'Type the first team: ') )
+            ==
+            ( second_team := get_team(cup, group, confirm, 'Type the second team: ') )
         ): print('The teams must be different');
 
     return first_team, second_team;
