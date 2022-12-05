@@ -2,6 +2,8 @@
 
 """
 
+from datetime import date, time
+
 _YEAR : int = 2022;
 
 def _get_all_teams_registered(cup : dict) -> list:
