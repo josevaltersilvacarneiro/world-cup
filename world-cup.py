@@ -110,7 +110,7 @@ def print_teams(cup : dict, games : dict) -> None:
                     team_data['gc'] += game[2];
                     team_data['gd'] += team_data['gs'] - team_data['gc'];
 
-                classification[group].append(team_data);
+            classification[group].append(team_data);
 
     for group, teams in classification.items():
         print('-' * 30);
