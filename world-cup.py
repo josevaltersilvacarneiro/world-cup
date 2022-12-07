@@ -71,9 +71,48 @@ def print_team_with_most_goals_in_the_cup(games : dict) -> None:
 
     print(f'{game[0]} [{game[2]}] vs [{game[3]}] {game[1]}');  
 
-def update(cup : dict) -> None:
+def print_teams(cup : dict, games : dict) -> None:
+
+    classification : dict = { group : list() for group, teams in cup.items() };
 
     for group, teams in cup.items():
+        for team in teams:
+
+            team_data = dict();
+
+            team_data['name'] = team;
+            team_data['pt'] = 0;  # Points
+            team_data['gd'] = 0;  # Goal Difference
+            team_data['gs'] = 0;  # Goals scored
+            team_data['gc'] = 0;  # Goals Conceded
+            
+            for game in games[group]:
+                
+                if game[0] == team:
+
+                    if game[2] > game[3]:
+                        team_data['pt'] += 3;
+                    elif game[2] == game[3]:
+                        team_data['pt'] += 1;
+
+                    team_data['gs'] += game[2];
+                    team_data['gc'] += game[3];
+                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+
+                elif game[1] == team:
+
+                    if game[3] > game[2]:
+                        team_data['pt'] += 3;
+                    elif game[3] == game[2]:
+                        team_data['pt'] += 1;
+
+                    team_data['gs'] += game[3];
+                    team_data['gc'] += game[2];
+                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+
+                classification[group].append(team_data);
+
+    for group, teams in classification.items():
         print('-' * 30);
         print('#', end='');
         print(group.center(28), end='');
@@ -81,9 +120,14 @@ def update(cup : dict) -> None:
         print('-' * 30);
 
         for team in teams:
-            print(team);
+            print(
+                    team['name'], team['pt'], team['gd'], team['gs'], team['gc'],
+                    sep='\t'
+                );
 
     print('-' * 30);
+
+    enter = input('Press enter to continue');
 
 def main() -> int:
 
@@ -92,7 +136,7 @@ def main() -> int:
 
     while True:
 
-        if not ut.are_all_teams_registered(cup):
+        if not ut.is_every_registered(cup, games):
 
             print('1 → Register');
             options.append(1);
@@ -115,6 +159,8 @@ def main() -> int:
         
         option : int = ut.get_option(options);
 
+        print_teams(cup, games);
+
         if option == 1:
             register(cup, games);
         elif option == 2:
@@ -127,8 +173,6 @@ def main() -> int:
             pass;
         elif option == 6:
             break;
-
-        update(cup);
 
     push(cup, games);                                  # Isso empurra os dados do programa para o arquivo
 
