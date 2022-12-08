@@ -112,20 +112,35 @@ def print_teams(cup : dict, games : dict) -> None:
 
             classification[group].append(team_data);
 
-    for group, teams in classification.items():
-        print('-' * 30);
-        print('#', end='');
-        print(group.center(28), end='');
-        print('#');
-        print('-' * 30);
+    # Tim Sort Algorithm
 
+    for group, teams in classification.items():
+        print('-' * 32);
+        print('#', end='');
+        print(group.center(30), end='');
+        print('#');
+        print('-' * 32);
+
+        
+        print(
+                '{:<20}'.format('Name'), 
+                'PT',
+                'GD',
+                'GS',
+                'GC',
+                sep=' '
+            );
         for team in teams:
             print(
-                    team['name'], team['pt'], team['gd'], team['gs'], team['gc'],
-                    sep='\t'
+                    '{:<20}'.format(team['name']), 
+                    '{:02}'.format(team['pt']),
+                    '{:2}'.format(team['gd']),
+                    '{:02}'.format(team['gs']),
+                    '{:02}'.format(team['gc']),
+                    sep=' '
                 );
 
-    print('-' * 30);
+    print('-' * 32);
 
     enter = input('Press enter to continue');
 
