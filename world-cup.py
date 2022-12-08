@@ -10,6 +10,22 @@ import _delete as dl
 
 import _statistics as st
 
+def _insertion_sort(classification : dict, key : str) -> None:
+
+    for group in classification.values():
+    
+        length : int = len(group);
+
+        for i in range(length):
+            current = group[i];
+            j = i - 1;
+
+            while j >= 0 and group[j][key] < current[key]:
+                group[j+1] = group[j];
+                j-= 1;
+            
+            group[j+1] = current;
+
 def get_option(games : dict, operation : str) -> int:
 
     options : list = [1];
@@ -112,7 +128,11 @@ def print_teams(cup : dict, games : dict) -> None:
 
             classification[group].append(team_data);
 
-    # Tim Sort Algorithm
+    # Insertion Sort Algorithm
+
+    _insertion_sort(classification, 'gs');
+    _insertion_sort(classification, 'gd');
+    _insertion_sort(classification, 'pt');
 
     for group, teams in classification.items():
         print('-' * 32);
