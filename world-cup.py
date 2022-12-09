@@ -49,7 +49,7 @@ def _get_ranking(cup : dict, games : dict) -> dict:
 
                     team_data['gs'] += game[2];
                     team_data['gc'] += game[3];
-                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+                    team_data['gd'] = team_data['gs'] - team_data['gc'];
 
                 elif game[1] == team:
 
@@ -60,7 +60,7 @@ def _get_ranking(cup : dict, games : dict) -> dict:
 
                     team_data['gs'] += game[3];
                     team_data['gc'] += game[2];
-                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+                    team_data['gd'] = team_data['gs'] - team_data['gc'];
 
             classification[group].append(team_data);
 
