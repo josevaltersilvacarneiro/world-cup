@@ -86,9 +86,11 @@ def get_option(games : dict, operation : str) -> int:
 
 def register(cup : dict, games : dict) -> None:
 
-    options : list = [1];
+    options : list = [];
 
-    print('1 → Register teams');
+    if not ut.are_all_teams_registered(cup):
+        print('1 → Register teams');
+        options.append(1);
 
     if not ut.are_all_games_registered(games):
         print('2 → Register games');
@@ -110,14 +112,14 @@ def delete(cup : dict, games : dict) -> None:
 
     dl.delete_team(cup, games) if option == 1 else dl.delete_game(cup, games);
 
-#-----------------------------------------------------------#
-########################## Print ############################
+#----------------------------------------------------------#
+#------------------------- Print --------------------------#
 
-def print_goal_average(games : dict) -> None:
-    
-    goal_average : float = st.goal_average();
+def print_statistics(games : dict) -> None:
 
-    print(f'The average of goals in the first phase of the World Cup was {goal_average}');
+    print_group_goal_average(games);
+    print_goal_average(games);
+    print_team_with_most_goals_in_the_cup(games);
 
 def print_group_goal_average(games : dict) -> None:
     
@@ -125,13 +127,23 @@ def print_group_goal_average(games : dict) -> None:
 
         group_goal_average : float = st.group_goal_average(games, group);
 
-        print(f'The average of goals in the group {group} in the first phase was {group_goal_average}');
+        print(group, group_goal_average, sep='\t');
+    else:
+        print()
+
+def print_goal_average(games : dict) -> None:
+    
+    goal_average : float = st.goal_average();
+
+    print(f'Goal Average in the World Cup: {goal_average}');
 
 def print_team_with_most_goals_in_the_cup(games : dict) -> None:
     
     game : list = st.most_goals_in_a_game(games);
 
-    print(f'{game[0]} [{game[2]}] vs [{game[3]}] {game[1]}');  
+    print(f'{game[0]} [{game[2]}] vs [{game[3]}] {game[1]}',
+            game[4], game[5], sep='\n'
+        );
 
 def print_teams(cup : dict, games : dict) -> None:
 
@@ -167,35 +179,32 @@ def print_teams(cup : dict, games : dict) -> None:
 
 def main() -> int:
 
-    options : list = [6];
     cup, games = get();            # Isso carrega os dados do arquivo, caso o arquivo exista
 
     while True:
 
+        options : list = [6, 7];
+        
         if not ut.is_every_registered(cup, games):
-
             print('1 → Register');
+
             options.append(1);
-
-        if ut.is_any_team_registered(cup):
-
-            print('2 → Edit');
-            print('3 → Delete');
-
-            options.extend([2, 3]);
-
-        if ut.is_every_registered(cup, games):
-
+        else:
             print('4 → Statistic');
             print('5 → Release of the next phase games');
 
             options.extend([4, 5]);
 
-        print('6 → Exit');
+        if ut.is_any_team_registered(cup):
+            print('2 → Edit');
+            print('3 → Delete');
+
+            options.extend([2, 3]);
+
+        print('6 → Show the teams');
+        print('7 → Exit');
         
         option : int = ut.get_option(options);
-
-        print_teams(cup, games);
 
         if option == 1:
             register(cup, games);
@@ -204,10 +213,12 @@ def main() -> int:
         elif option == 3:
             delete(cup, games);
         elif option == 4:
-            pass
+            print_statistics(games);
         elif option == 5:
             pass;
         elif option == 6:
+            print_teams(cup, games);
+        elif option == 7:
             break;
 
     push(cup, games);                                  # Isso empurra os dados do programa para o arquivo
