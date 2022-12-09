@@ -1,13 +1,10 @@
 #!/bin/env python
 
 import _utils as ut
-
 from _file import *
-
 import _register as rg
 import _edit as ed
 import _delete as dl
-
 import _statistics as st
 
 def _insertion_sort(classification : dict, key : str) -> None:
@@ -25,6 +22,55 @@ def _insertion_sort(classification : dict, key : str) -> None:
                 j-= 1;
             
             group[j+1] = current;
+
+def _get_ranking(cup : dict, games : dict) -> dict:
+
+    classification : dict = { group : list() for group, teams in cup.items() };
+
+    for group, teams in cup.items():
+        for team in teams:
+
+            team_data = dict();
+
+            team_data['name'] = team;
+            team_data['pt'] = 0;  # Points
+            team_data['gd'] = 0;  # Goal Difference
+            team_data['gs'] = 0;  # Goals Scored
+            team_data['gc'] = 0;  # Goals Conceded
+            
+            for game in games[group]:
+                
+                if game[0] == team:
+
+                    if game[2] > game[3]:
+                        team_data['pt'] += 3;
+                    elif game[2] == game[3]:
+                        team_data['pt'] += 1;
+
+                    team_data['gs'] += game[2];
+                    team_data['gc'] += game[3];
+                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+
+                elif game[1] == team:
+
+                    if game[3] > game[2]:
+                        team_data['pt'] += 3;
+                    elif game[3] == game[2]:
+                        team_data['pt'] += 1;
+
+                    team_data['gs'] += game[3];
+                    team_data['gc'] += game[2];
+                    team_data['gd'] += team_data['gs'] - team_data['gc'];
+
+            classification[group].append(team_data);
+
+    # Insertion Sort Algorithm
+
+    _insertion_sort(classification, 'gs');
+    _insertion_sort(classification, 'gd');
+    _insertion_sort(classification, 'pt');
+
+    return classification;
 
 def get_option(games : dict, operation : str) -> int:
 
@@ -89,58 +135,13 @@ def print_team_with_most_goals_in_the_cup(games : dict) -> None:
 
 def print_teams(cup : dict, games : dict) -> None:
 
-    classification : dict = { group : list() for group, teams in cup.items() };
-
-    for group, teams in cup.items():
-        for team in teams:
-
-            team_data = dict();
-
-            team_data['name'] = team;
-            team_data['pt'] = 0;  # Points
-            team_data['gd'] = 0;  # Goal Difference
-            team_data['gs'] = 0;  # Goals scored
-            team_data['gc'] = 0;  # Goals Conceded
-            
-            for game in games[group]:
-                
-                if game[0] == team:
-
-                    if game[2] > game[3]:
-                        team_data['pt'] += 3;
-                    elif game[2] == game[3]:
-                        team_data['pt'] += 1;
-
-                    team_data['gs'] += game[2];
-                    team_data['gc'] += game[3];
-                    team_data['gd'] += team_data['gs'] - team_data['gc'];
-
-                elif game[1] == team:
-
-                    if game[3] > game[2]:
-                        team_data['pt'] += 3;
-                    elif game[3] == game[2]:
-                        team_data['pt'] += 1;
-
-                    team_data['gs'] += game[3];
-                    team_data['gc'] += game[2];
-                    team_data['gd'] += team_data['gs'] - team_data['gc'];
-
-            classification[group].append(team_data);
-
-    # Insertion Sort Algorithm
-
-    _insertion_sort(classification, 'gs');
-    _insertion_sort(classification, 'gd');
-    _insertion_sort(classification, 'pt');
+    classification : dict = _get_ranking(cup, games);
 
     for group, teams in classification.items():
-        print('-' * 32);
-        print('#', end='');
-        print(group.center(30), end='');
-        print('#');
-        print('-' * 32);
 
+        print('-' * 32, '#', sep='\n', end='');
+        print(group.center(30), end='');
+        print('#', '-' * 32, sep='\n');
         
         print(
                 '{:<20}'.format('Name'), 
