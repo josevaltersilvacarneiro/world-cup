@@ -50,7 +50,9 @@ def _register_game(cup : dict, games : dict) -> None:
             if not (
                 (fir_team == first_team and sec_team == second_team) or
                 (fir_team == second_team and sec_team == first_team)
-            ): found = True;
+            ): found = True; break;
+        else:
+            found = True;
 
     num_of_goals_team_one : int = get_amount(f'Number of goals for {first_team}: ');
     num_of_goals_team_two : int = get_amount(f'Number of goals for {second_team}: ');
