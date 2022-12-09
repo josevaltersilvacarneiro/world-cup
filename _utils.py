@@ -15,18 +15,6 @@ def _get_all_teams_registered(cup : dict) -> list:
 
     return teams;
 
-def _are_all_data_registered(data : dict, max_amount_of_elements : int, typ : bool = False):
-
-    for group, value in data.items():
-
-        if typ:
-            max_amount_of_elements : int = max_number_of_games_registered_in_the_group(data, group);
-
-        if len(value) < max_amount_of_elements:
-            return False;
-
-    return True;
-
 def _is_any_data_registered(data : dict):
 
     for element in data.values():
@@ -172,15 +160,27 @@ def number_of_games_to_register(cup : dict, games : dict) -> int:
 
 def are_all_teams_registered(cup : dict):
 
-    return _are_all_data_registered(cup, 4);
+    for group in cup.values():
 
-def are_all_games_registered(games : dict):
+        if len(group) < 4:
+            return False;
 
-    return _are_all_data_registered(games, 6, True);
+    return True;
+
+def are_all_games_registered(cup : dict, games : dict):
+
+    for group, value in games.items():
+
+        max_amount_of_elements : int = max_number_of_games_registered_in_the_group(cup, group);
+
+        if len(value) < max_amount_of_elements:
+            return False;
+
+    return True;
 
 def is_every_registered(cup : dict, games : dict):
 
-    return are_all_teams_registered(cup) and are_all_games_registered(games);
+    return are_all_teams_registered(cup) and are_all_games_registered(cup, games);
 
 def is_any_team_registered(cup : dict):
 
