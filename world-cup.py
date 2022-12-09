@@ -92,7 +92,7 @@ def register(cup : dict, games : dict) -> None:
         print('1 → Register teams');
         options.append(1);
 
-    if not ut.are_all_games_registered(games):
+    if not ut.are_all_games_registered(cup, games):
         print('2 → Register games');
         options.append(2);
     
@@ -186,20 +186,23 @@ def main() -> int:
         options : list = [6, 7];
         
         if not ut.is_every_registered(cup, games):
+            
             print('1 → Register');
-
             options.append(1);
-        else:
-            print('4 → Statistic');
-            print('5 → Release of the next phase games');
-
-            options.extend([4, 5]);
 
         if ut.is_any_team_registered(cup):
+            
             print('2 → Edit');
             print('3 → Delete');
 
             options.extend([2, 3]);
+
+        if ut.is_every_registered(cup, games):
+
+            print('4 → Statistic');
+            print('5 → Release of the next phase games');
+
+            options.extend([4, 5]);
 
         print('6 → Show the teams');
         print('7 → Exit');
