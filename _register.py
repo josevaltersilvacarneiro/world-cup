@@ -38,7 +38,19 @@ def _register_game(cup : dict, games : dict) -> None:
         else:
             break;
 
-    first_team, second_team = get_two_different_teams(cup, group, False);
+    found : bool = False;
+    while not found:
+
+        first_team, second_team = get_two_different_teams(cup, group, False);
+
+        for game in games[group]:
+
+            fir_team, sec_team = game[0], game[1];
+
+            if not (
+                (fir_team == first_team and sec_team == second_team) or
+                (fir_team == second_team and sec_team == first_team)
+            ): found = True;
 
     num_of_goals_team_one : int = get_amount(f'Number of goals for {first_team}: ');
     num_of_goals_team_two : int = get_amount(f'Number of goals for {second_team}: ');
