@@ -86,7 +86,7 @@ def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Ty
     all_teams_registered : list = _get_all_teams_registered(cup);
 
     if confirm:
-        while ( team := input(message).title() ) in all_teams_registered:
+        while ( team := input(message) ) in all_teams_registered:
             print(f'The team {team} is already registered');
     else:
         while ( team := input(message) ) not in cup[group]:
