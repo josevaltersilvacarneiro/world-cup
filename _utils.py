@@ -115,7 +115,7 @@ def get_date() -> tuple:
         except ValueError:
             print('Invalid date. Try again!');
         else:
-            return game_time.hour, game_time.minute, game_date.day, game_date.month;
+            return str(game_date.day + '/' + game_date.month + ' at ' + game_date.hour + ':' + game_time.minute);
 
 def get_place() -> str:
 
