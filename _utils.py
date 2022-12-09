@@ -33,6 +33,23 @@ def _is_any_data_registered(data : dict):
 
     return False;
 
+def _max_number_of_games_registered(cup : dict) -> int:
+    """Using a repetiton loop, all groups looped.
+    By means of the Fundamental Counting Theorem,
+    the number of possible games in each group is
+    found and then added to the accumulator varia-
+    ble called 'max_sum_of_games_registered'. At
+    the end, it's returned.
+
+    """
+
+    max_num_of_games_registered : int = 0;
+
+    for group in cup.keys():
+        max_num_of_games_registered += max_number_of_games_registered_in_the_group(cup, group);
+
+    return max_num_of_games_registered;
+
 def check(message : str) -> bool:
 
     check = input(f'{message}: [y/N]').strip().upper();
@@ -120,6 +137,10 @@ def number_of_teams_registered(cup : dict) -> int:
 
     return num_of_teams_registered;
 
+def number_of_teams_to_register(cup : dict) -> int:
+
+    return 8 * 4 - number_of_teams_registered(cup);
+
 def number_of_games_registered(games : dict) -> int:
 
     num_of_games_registered : int = 0;
@@ -129,6 +150,19 @@ def number_of_games_registered(games : dict) -> int:
         num_of_games_registered += len(group);
 
     return num_of_games_registered;
+
+def max_number_of_games_registered_in_the_group(cup : dict, group : str) -> int:
+
+    # Fundamental Counting Theorem
+
+    num_of_teams_registered_in_the_group : int = len(cup[group]);
+    num_of_possible_games = num_of_teams_registered_in_the_group * (num_of_teams_registered_in_the_group - 1) / 2;
+
+    return num_of_possible_games;
+
+def number_of_games_to_register(cup : dict, games : dict) -> int:
+
+    return _max_number_of_games_registered(cup) - number_of_games_registered(games);
 
 def are_all_teams_registered(cup : dict):
 
