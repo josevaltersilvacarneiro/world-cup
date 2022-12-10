@@ -13,14 +13,14 @@ def _number_of_goals_in_the_group(games : dict, group : str) -> int:
 
     return num_of_goals_in_the_group;
 
-#-----------------------------------------------------------------------#
-############################### Public ##################################
+#-----------------------------------------------------------#
+#------------------------- Public --------------------------#
 
 def group_goal_average(games : dict, group : str) -> float:
 
     num_of_games : int = len(games[group]);
 
-    return None if num_of_games == 0 else _number_of_goals_in_the_group(games, group) / num_of_games;
+    return 0 if num_of_games == 0 else _number_of_goals_in_the_group(games, group) / num_of_games;
 
 def goal_average(games : dict) -> float:
 
