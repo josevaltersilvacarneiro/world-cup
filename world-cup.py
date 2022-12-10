@@ -133,7 +133,7 @@ def print_group_goal_average(games : dict) -> None:
 
 def print_goal_average(games : dict) -> None:
     
-    goal_average : float = st.goal_average();
+    goal_average : float = st.goal_average(games);
 
     print(f'Goal Average in the World Cup: {goal_average}');
 
