@@ -145,6 +145,24 @@ def print_team_with_most_goals_in_the_cup(games : dict) -> None:
             game[4], game[5], sep='\n'
         );
 
+def print_next_phase(cup : dict, games : dict) -> None:
+
+    classification : dict = _get_ranking(cup, games);
+    classified_teams = [ team['name'] for group in classification.values() for team in group[:2] ];
+
+    print('-' * 32);
+    print('Next Phase'.center(32));
+    print('-' * 32);
+
+    for i in [0, 1]:
+        for first_team, second_team in zip(classified_teams[i::4], classified_teams[3-i::4]):
+            if i:
+                print(f'{second_team} vs {first_team}');
+            else:
+                print(f'{first_team} vs {second_team}');
+
+    print('-' * 32);
+
 def print_teams(cup : dict, games : dict) -> None:
 
     classification : dict = _get_ranking(cup, games);
@@ -218,7 +236,7 @@ def main() -> int:
         elif option == 4:
             print_statistics(games);
         elif option == 5:
-            pass;
+            print_next_phase(cup, games);
         elif option == 6:
             print_teams(cup, games);
         elif option == 7:
