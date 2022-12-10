@@ -37,7 +37,7 @@ def most_goals_in_a_game(games : dict) -> list:
 
     data : list = [];
 
-    for games_in_the_group in games.values:
+    for games_in_the_group in games.values():
         for game in games_in_the_group:
 
             max_number_of_goals_in_the_game = max(game[2], game[3]);
