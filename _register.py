@@ -47,10 +47,10 @@ def _register_game(cup : dict, games : dict) -> None:
 
             fir_team, sec_team = game[0], game[1];
 
-            if not (
+            if (
                 (fir_team == first_team and sec_team == second_team) or
                 (fir_team == second_team and sec_team == first_team)
-            ): found = True; break;
+            ): found = False; break;
         else:
             found = True;
 
