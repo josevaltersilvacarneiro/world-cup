@@ -161,7 +161,7 @@ def print_team_with_most_goals_in_the_cup(games : dict) -> None:
     else:
         print(game[1]);
 
-    print(f'{game[4]} {game[5]}'.center(len(match)));
+    print(f'\n{game[4]} {game[5]}'.center(len(match)));
     print(match);
 
 def print_next_phase(cup : dict, games : dict) -> None:
@@ -181,6 +181,8 @@ def print_next_phase(cup : dict, games : dict) -> None:
                 print(f'{first_team} vs {second_team}');
 
     print_line();
+
+    enter = input('Type enter to continue');
 
 def print_teams(cup : dict, games : dict) -> None:
 
