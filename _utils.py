@@ -73,6 +73,12 @@ def _max_number_of_games_registered(cup : dict) -> int:
 #--------------------- Public ---------------------#
 
 def check(message : str) -> bool:
+    """This function waits for the user
+    to type y or N for the question
+    passed as argument and returns
+    True (Y) or False (any).
+
+    """
 
     check = input(f'{message}: [y/N]').strip().upper();
 
