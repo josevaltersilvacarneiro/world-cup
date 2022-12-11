@@ -130,6 +130,9 @@ def get_option(options : list) -> int:
 
 def get_group(groups : dict) -> str:
 
+    # As long as typed group isn't in groups, run;
+    # else return this group
+
     while ( group := input('Type the group: ').strip().upper() ) not in groups:
         print('Invalid group! Try again');
 
