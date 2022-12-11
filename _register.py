@@ -25,8 +25,6 @@ def _register_team(cup : dict) -> None:
 
 def _register_game(cup : dict, games : dict) -> None:
 
-    groups : list = cup.keys();
-
     while True:
 
         group : str = get_non_empty_group(cup);
