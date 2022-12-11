@@ -190,9 +190,16 @@ def max_number_of_games_registered_in_the_group(cup : dict, group : str) -> int:
 
 def number_of_games_to_register(cup : dict, games : dict) -> int:
 
+    # The amount of games that remain to be added is
+    # the max amount than can be registered minus
+    # the amount that has already been registered
+
     return _max_number_of_games_registered(cup) - number_of_games_registered(games);
 
 def are_all_teams_registered(cup : dict):
+
+    # If the amount of teams registered is less than
+    # tha max amount, the all teams aren't added
 
     for group in cup.values():
 
@@ -202,8 +209,15 @@ def are_all_teams_registered(cup : dict):
     return True;
 
 def are_all_games_registered(cup : dict, games : dict):
+    
+    # If the amount of games registered is less than
+    # the max amount, then all game aren't added
 
     for group, value in games.items():
+
+        # To find out the max num of games that can be
+        # added to a group, The Fundamental Counting
+        # Theorem must be used
 
         max_amount_of_elements : int = max_number_of_games_registered_in_the_group(cup, group);
 
@@ -213,6 +227,9 @@ def are_all_games_registered(cup : dict, games : dict):
     return True;
 
 def is_every_registered(cup : dict, games : dict):
+
+    # If all the teams and all the games are registered, then
+    # all is registered
 
     return are_all_teams_registered(cup) and are_all_games_registered(cup, games);
 
