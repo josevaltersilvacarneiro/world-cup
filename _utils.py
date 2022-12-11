@@ -170,7 +170,7 @@ def get_two_different_teams(cup : dict, group : str, confirm : bool = True) -> t
 
     return first_team, second_team;
 
-def get_date() -> tuple:
+def get_date() -> str:
 
     global _YEAR;
 
