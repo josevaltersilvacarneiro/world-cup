@@ -119,6 +119,9 @@ def get_amount(message : str) -> int:
 
 def get_option(options : list) -> int:
 
+    # As long as option isn't in options, run;
+    # else return this option
+
     while (
             ( option := get_amount('Type your option: ') ) not in options
         ): print(f'{option} isn\'t a valid option');
