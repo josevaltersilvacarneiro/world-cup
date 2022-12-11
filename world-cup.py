@@ -72,6 +72,9 @@ def _get_ranking(cup : dict, games : dict) -> dict:
 
     return classification;
 
+def print_line() -> None:
+    print('-' * 32);
+
 def get_option(games : dict, operation : str) -> int:
 
     options : list = [1];
@@ -117,42 +120,58 @@ def delete(cup : dict, games : dict) -> None:
 
 def print_statistics(games : dict) -> None:
 
+    print_line();
+    print('Statistics'.center(32));
+    print_line();
+
     print_group_goal_average(games);
     print_goal_average(games);
     print_team_with_most_goals_in_the_cup(games);
 
+    print_line();
+
+    enter = input('Type enter to continue');
+
 def print_group_goal_average(games : dict) -> None:
     
+    print('# Group Goal Average\n');
+
     for group in games.keys():
 
         group_goal_average : float = st.group_goal_average(games, group);
 
-        print(group, group_goal_average, sep='\t');
-    else:
-        print()
+        print(group, round(group_goal_average, 1), sep='\t');
+    
+    print();
 
 def print_goal_average(games : dict) -> None:
     
     goal_average : float = st.goal_average(games);
 
-    print(f'Goal Average in the World Cup: {goal_average}');
+    print(f'# Goal Average: {goal_average}');
 
 def print_team_with_most_goals_in_the_cup(games : dict) -> None:
     
     game : list = st.most_goals_in_a_game(games);
+    match : str = f'{game[0]} {game[2]} vs {game[3]} {game[1]}\n';
 
-    print(f'{game[0]} [{game[2]}] vs [{game[3]}] {game[1]}',
-            game[4], game[5], sep='\n'
-        );
+    print('# More goals in a match: ', end='');
+    if game[2] > game[3]:
+        print(game[0]);
+    else:
+        print(game[1]);
+
+    print(f'{game[4]} {game[5]}'.center(len(match)));
+    print(match);
 
 def print_next_phase(cup : dict, games : dict) -> None:
 
     classification : dict = _get_ranking(cup, games);
     classified_teams = [ team['name'] for group in classification.values() for team in group[:2] ];
 
-    print('-' * 32);
+    print_line();
     print('Next Phase'.center(32));
-    print('-' * 32);
+    print_line();
 
     for i in [0, 1]:
         for first_team, second_team in zip(classified_teams[i::4], classified_teams[3-i::4]):
@@ -161,7 +180,7 @@ def print_next_phase(cup : dict, games : dict) -> None:
             else:
                 print(f'{first_team} vs {second_team}');
 
-    print('-' * 32);
+    print_line();
 
 def print_teams(cup : dict, games : dict) -> None:
 
