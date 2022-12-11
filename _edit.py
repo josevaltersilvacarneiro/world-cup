@@ -13,7 +13,9 @@ from _utils import (
 def edit_team(cup : dict, games : dict) -> None:
 
     group : str = get_non_empty_group(cup);
-    team, new_team = get_team(cup, group, False), get_team(cup, group, message='New team: ');
+
+    team     : str = get_team(cup, group, False, 'Type the team you want to edit: ');
+    new_team : str = get_team(cup, group, message='New team: ');
     
     message : str = f'Do you really want to replace {team} by {new_team}';
 
