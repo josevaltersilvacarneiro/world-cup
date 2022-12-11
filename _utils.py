@@ -4,7 +4,25 @@
 
 from datetime import date, time
 
+from _file import get_countries
+
 _YEAR : int = 2022;
+
+def _get_country(message : str) -> str:
+
+    countries : list = get_countries();
+
+    while True:
+
+        entry : str = input(message);
+
+        for country in countries:
+            if (
+                    entry.lower() == country['nome_pais'].lower() or
+                    entry.lower() == country['nome_pais_int'].lower()
+                ): return country['nome_pais'];
+        else:
+            print(f'{entry} isn\'t a country');
 
 def _get_all_teams_registered(cup : dict) -> list:
     """This function looped all the groups and
@@ -152,10 +170,10 @@ def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Ty
     all_teams_registered : list = _get_all_teams_registered(cup);
 
     if confirm:
-        while ( team := input(message) ) in all_teams_registered:
+        while ( team := _get_country(message) ) in all_teams_registered:
             print(f'The team {team} is already registered');
     else:
-        while ( team := input(message) ) not in cup[group]:
+        while ( team := _get_country(message) ) not in cup[group]:
             print(f'The team {team} isn\'t in group {group}');
 
     return team;
