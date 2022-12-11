@@ -40,10 +40,10 @@ def edit_game(cup : dict, games : dict) -> None:
 
         for game in games[group]:
         
-            if (
-                (game[0] == first_team and game[1] == second_team) or
-                (game[0] == second_team and game[1] == first_team)
-                    ):
+            if  (
+                    (game[0] == first_team and game[1] == second_team) or
+                    (game[0] == second_team and game[1] == first_team)
+                ):
                 
                 print(f'1 → The number of goals for team {first_team} is wrong');
                 print(f'2 → The number of goals for team {second_team} is wrong');
