@@ -61,3 +61,15 @@ def push_data(cup : dict, games : dict) -> None:
     global _FILES;
 
     _push({'cup' : cup, 'games' : games}, _FILES['data']);
+
+def get_countries() -> list:
+
+    global _FILES;
+
+    data : dict = _get(_FILES['countries']);
+
+    if data:
+        return data;
+
+    return [];
+
