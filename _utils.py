@@ -52,6 +52,16 @@ def _is_any_data_registered(data : dict) -> bool:
 
     return False;
 
+def _number_of_data_registered(data : dict) -> int:
+
+    num_of_data_registered : int = 0;
+
+    for value in data.values():
+
+        num_of_data_registered += len(value);
+
+    return num_of_data_registered;
+
 def _max_number_of_games_registered(cup : dict) -> int:
     """Using a repetiton loop, all groups looped.
     By means of the Fundamental Counting Theorem,
@@ -157,13 +167,7 @@ def get_place() -> str:
 
 def number_of_teams_registered(cup : dict) -> int:
 
-    num_of_teams_registered : int = 0;
-
-    for group in cup.values():
-
-        num_of_teams_registered += len(group);
-
-    return num_of_teams_registered;
+    return _number_of_data_registered(cup);
 
 def number_of_teams_to_register(cup : dict) -> int:
 
@@ -175,13 +179,7 @@ def number_of_teams_to_register(cup : dict) -> int:
 
 def number_of_games_registered(games : dict) -> int:
 
-    num_of_games_registered : int = 0;
-
-    for group in games.values():
-
-        num_of_games_registered += len(group);
-
-    return num_of_games_registered;
+    return _number_of_data_registered(games);
 
 def max_number_of_games_registered_in_the_group(cup : dict, group : str) -> int:
 
