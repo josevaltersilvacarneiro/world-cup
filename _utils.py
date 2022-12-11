@@ -7,6 +7,20 @@ from datetime import date, time
 _YEAR : int = 2022;
 
 def _get_all_teams_registered(cup : dict) -> list:
+    """This function looped all the groups and
+    stores all the teams found in the teams list.
+    At the end, it returns.
+
+    cup : dict = {
+        'A' : [],
+        'B' : [],
+        .
+        .
+        .
+        'H' : [],
+    }
+
+    """
 
     teams : list = [];
 
@@ -16,6 +30,20 @@ def _get_all_teams_registered(cup : dict) -> list:
     return teams;
 
 def _is_any_data_registered(data : dict):
+    """This function looped all the groups.
+    If there is at least one element added,
+    it returns True; else it returns False.
+
+    data : dict = {
+        'A' : [],
+        'B' : [],
+        .
+        .
+        .
+        'H' : [],
+    }
+
+    """
 
     for element in data.values():
 
