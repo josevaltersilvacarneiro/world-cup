@@ -53,6 +53,19 @@ def _is_any_data_registered(data : dict) -> bool:
     return False;
 
 def _number_of_data_registered(data : dict) -> int:
+    """This function returns how many values have
+    already been added to the data dictionary.
+
+    data : dict = {
+        key_1 : [],
+        key_2 : [],
+        .
+        .
+        .
+        key_n : [],
+    }
+
+    """
 
     num_of_data_registered : int = 0;
 
