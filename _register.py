@@ -5,7 +5,7 @@ for registering the teams and the games.
 
 from _utils import (
             get_amount,
-            get_group,
+            get_group, get_non_empty_group,
             get_team, get_two_different_teams,
             get_date, get_place,
             max_number_of_games_registered_in_the_group,
@@ -29,7 +29,7 @@ def _register_game(cup : dict, games : dict) -> None:
 
     while True:
 
-        group : str = get_group(groups);
+        group : str = get_non_empty_group(cup);
 
         if games[group].__len__() == 6:
             print('All games in this group already were registered');
