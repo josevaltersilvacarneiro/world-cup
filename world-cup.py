@@ -218,7 +218,7 @@ def print_teams(cup : dict, games : dict) -> None:
 
 def main() -> int:
 
-    cup, games = get();            # Isso carrega os dados do arquivo, caso o arquivo exista
+    cup, games = get_data();            # Isso carrega os dados do arquivo, caso o arquivo exista
 
     while True:
 
@@ -263,7 +263,7 @@ def main() -> int:
         elif option == 7:
             break;
 
-    push(cup, games);                                  # Isso empurra os dados do programa para o arquivo
+    push_data(cup, games);                                  # Isso empurra os dados do programa para o arquivo
 
     return 0;
 
