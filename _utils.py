@@ -167,6 +167,10 @@ def number_of_teams_registered(cup : dict) -> int:
 
 def number_of_teams_to_register(cup : dict) -> int:
 
+    # The amount of teams that can be added is
+    # 32 minus the amount of team that has
+    # already been added
+
     return 8 * 4 - number_of_teams_registered(cup);
 
 def number_of_games_registered(games : dict) -> int:
@@ -190,9 +194,9 @@ def max_number_of_games_registered_in_the_group(cup : dict, group : str) -> int:
 
 def number_of_games_to_register(cup : dict, games : dict) -> int:
 
-    # The amount of games that remain to be added is
-    # the max amount than can be registered minus
-    # the amount that has already been registered
+    # The amount of games that can be added is the
+    # max amount than can be registered minus the
+    # amount that has already been registered
 
     return _max_number_of_games_registered(cup) - number_of_games_registered(games);
 
