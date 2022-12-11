@@ -29,7 +29,7 @@ def _get_all_teams_registered(cup : dict) -> list:
 
     return teams;
 
-def _is_any_data_registered(data : dict):
+def _is_any_data_registered(data : dict) -> bool:
     """This function looped all the groups.
     If there is at least one element added,
     it returns True; else it returns False.
