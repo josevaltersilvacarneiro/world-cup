@@ -153,7 +153,7 @@ def get_date() -> tuple:
 
 def get_place() -> str:
 
-    return input('Place: ');
+    return input('Place: ').upper();
 
 def number_of_teams_registered(cup : dict) -> int:
 
