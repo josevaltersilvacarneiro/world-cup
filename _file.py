@@ -1,51 +1,63 @@
-""" The functions of this file are resposible
-for getting the data in the file when the 
-program is started - get() - and pushing the
-data contained in the working memory when the 
-program is finished - push().
+"""The functions of this file are resposible
+for getting the data in the file and pushing
+the data contained in the working memory.
 
 """
 
 import json
 
-_FILE = 'data.json'
+_FILES : dict = {
+        'data' : 'data.json',
+        'countries' : 'paises-gentilicos-google-maps.json',
+    };
 
-def get() -> tuple:
+def _get(filename : str) -> dict:
+    """This function opens the json file
+    and returns its contents if it
+    exists; else returns a empty dict.
+
+    """
 
     try:
-
-        with open(_FILE) as fil:
-
+        with open(filename) as fil:
             data = json.load(fil);
-
-            cup = data['cup'];
-            games = data['games'];
-
     except FileNotFoundError:
-        groups : list = [
-                'A',
-                'B',
-                'C',
-                'D',
-                'E',
-                'F',
-                'G',
-                'H',
-            ];
+        return dict();
+    else:
+        return data;
 
-        cup : dict = {group : list() for group in groups};
-        games : dict = {group : list() for group in groups};
+def _push(data : dict, filename : str) -> None:
+
+    with open(filename, 'w') as fil:
+        json.dump(data, fil);
+
+def get_data() -> tuple:
+
+    global _FILES;
+    
+    data : dict = _get(_FILES['data']);
+
+    if data:
+        return data['cup'], data['games'];
+
+    groups : list = [
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+        ];
+
+    cup : dict = {group : list() for group in groups};
+    games : dict = {group : list() for group in groups};
 
     return cup, games;
 
-def push(cup : dict, games : dict) -> None:
+def push_data(cup : dict, games : dict) -> None:
 
-    with open(_FILE, 'w') as fil:
+    global _FILES;
 
-        data = {
-                'cup' : cup,
-                'games' : games,
-            };
-
-        json.dump(data, fil);
-
+    _push({'cup' : cup, 'games' : games}, _FILES['data']);
