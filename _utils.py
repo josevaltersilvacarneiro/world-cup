@@ -109,6 +109,9 @@ def check(message : str) -> bool:
 
 def get_amount(message : str) -> int:
 
+    # As long as amount isn't a number, run;
+    # else return this number
+
     while not ( amount := input(message) ).isdecimal():
         print(f'{amount} isn\'t a number');
 
