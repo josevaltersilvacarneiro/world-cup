@@ -28,7 +28,7 @@ def _get(filename : str) -> dict:
 
 def _push(data : dict, filename : str) -> None:
 
-    with open(filename, 'w') as fil:
+    with open(filename, 'w', encoding='UTF8') as fil:
         json.dump(data, fil);
 
 def get_data() -> tuple:
