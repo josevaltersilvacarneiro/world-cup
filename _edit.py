@@ -26,6 +26,11 @@ def edit_team(cup : dict, games : dict) -> None:
 
     if check(message):
 
+        # Chain Replacement                   #
+        # The foreign key needs to be changed #
+        # because the primary key has been    #
+        # changed                             #
+
         for game in games[group]:
 
             if game[0] == team:
@@ -33,10 +38,16 @@ def edit_team(cup : dict, games : dict) -> None:
             elif game[1] == team:
                 game[1] = new_team;
 
+        # Replacing the team name             #
+
         index = cup[group].index(team);
         cup[group][index] = new_team;
 
 def edit_game(cup : dict, games : dict) -> None:
+    """The procedure allows that the user to change
+    attributes of a match.
+
+    """
 
     group : str = get_non_empty_group(cup);
     first_team, second_team = get_two_different_teams(cup, group, False);
