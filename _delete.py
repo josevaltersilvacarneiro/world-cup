@@ -44,6 +44,6 @@ def delete_game(cup : dict, games : dict) -> None:
 
             break;
 
-        else:
-            print('The game that you\'re trying to delete has not been registered yet');
+    else:
+        print('The game that you\'re trying to delete has not been registered yet');
 
