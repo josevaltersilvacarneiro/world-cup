@@ -7,21 +7,7 @@ import _edit as ed
 import _delete as dl
 import _statistics as st
 
-def _insertion_sort(classification : dict, key : str) -> None:
-
-    for group in classification.values():
-    
-        length : int = len(group);
-
-        for i in range(length):
-            current = group[i];
-            j = i - 1;
-
-            while j >= 0 and group[j][key] < current[key]:
-                group[j+1] = group[j];
-                j-= 1;
-            
-            group[j+1] = current;
+from _sort import sort_classification
 
 def _get_ranking(cup : dict, games : dict) -> dict:
 
@@ -64,11 +50,8 @@ def _get_ranking(cup : dict, games : dict) -> dict:
 
             classification[group].append(team_data);
 
-    # Insertion Sort Algorithm
-
-    _insertion_sort(classification, 'gs');
-    _insertion_sort(classification, 'gd');
-    _insertion_sort(classification, 'pt');
+    # Sort Algorithm
+    sort_classification(classification, 'pt', 'gd', 'gs');
 
     return classification;
 
