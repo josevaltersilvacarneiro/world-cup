@@ -16,12 +16,17 @@ def _register_team(cup : dict) -> None:
 
     groups : list = cup.keys();
 
-    # Run until find an incomplete group #
+    # Run until find an incomplete group    #
 
     while cup[( group := get_group(groups) )].__len__() > 3:
         print(f'The group {group} is already complete');
 
+    # Get a team that hasn't yet been added #
+
     team = get_team(cup, group);
+
+    # Add this team to the group typed by   #
+    # the user                              #
 
     cup[group].append(team);
 
