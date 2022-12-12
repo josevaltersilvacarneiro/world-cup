@@ -19,7 +19,7 @@ def _get(filename : str) -> dict:
     """
 
     try:
-        with open(filename) as fil:
+        with open(filename, encoding='UTF8') as fil:
             data = json.load(fil);
     except FileNotFoundError:
         return dict();
@@ -29,7 +29,7 @@ def _get(filename : str) -> dict:
 def _push(data : dict, filename : str) -> None:
 
     with open(filename, 'w', encoding='UTF8') as fil:
-        json.dump(data, fil);
+        json.dump(data, fil, indent=4);
 
 def get_data() -> tuple:
 
