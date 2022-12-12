@@ -76,7 +76,7 @@ def goal_average(games : dict) -> float:
 
     # ZeroDivisionError                                  #
 
-    return None if num_of_games == 0 else num_of_goals / num_of_games;
+    return 0 if num_of_games == 0 else num_of_goals / num_of_games;
 
 def most_goals_in_a_game(games : dict) -> list:
 
