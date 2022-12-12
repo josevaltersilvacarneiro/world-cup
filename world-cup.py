@@ -62,6 +62,8 @@ def get_option(games : dict, operation : str) -> int:
 
     options : list = [1];
 
+    ut.clean();
+
     print(f'1 → {operation} team');
 
     if ut.is_any_game_registered(games):
@@ -73,6 +75,8 @@ def get_option(games : dict, operation : str) -> int:
 def register(cup : dict, games : dict) -> None:
 
     options : list = [];
+
+    ut.clean();
 
     if not ut.are_all_teams_registered(cup):
         print('1 → Register teams');
@@ -102,6 +106,8 @@ def delete(cup : dict, games : dict) -> None:
 #------------------------- Print --------------------------#
 
 def print_statistics(games : dict) -> None:
+
+    ut.clean();
 
     print_line();
     print('Statistics'.center(32));
@@ -152,6 +158,8 @@ def print_next_phase(cup : dict, games : dict) -> None:
     classification : dict = _get_ranking(cup, games);
     classified_teams = [ team['name'] for group in classification.values() for team in group[:2] ];
 
+    ut.clean();
+
     print_line();
     print('Next Phase'.center(32));
     print_line();
@@ -170,6 +178,8 @@ def print_next_phase(cup : dict, games : dict) -> None:
 def print_teams(cup : dict, games : dict) -> None:
 
     classification : dict = _get_ranking(cup, games);
+
+    ut.clean();
 
     for group, teams in classification.items():
 
@@ -207,6 +217,8 @@ def main() -> int:
 
         options : list = [6, 7];
         
+        ut.clean();
+
         if not ut.is_every_registered(cup, games):
             
             print('1 → Register');
