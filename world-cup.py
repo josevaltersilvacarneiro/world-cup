@@ -213,7 +213,8 @@ def main() -> int:
 
     cup, games = get_data();            # Isso carrega os dados do arquivo, caso o arquivo exista
 
-    while True:
+    quit : bool = False;
+    while not quit:
 
         options : list = [6, 7];
         
@@ -239,7 +240,8 @@ def main() -> int:
             options.extend([4, 5]);
 
         print('6 → Show the teams');
-        print('7 → Exit');
+        print('7 → Exit without saving changes');
+        print('8 → Exit and save changes');
         
         option : int = ut.get_option(options);
 
@@ -257,8 +259,10 @@ def main() -> int:
             print_teams(cup, games);
         elif option == 7:
             break;
-
-    push_data(cup, games);                                  # Isso empurra os dados do programa para o arquivo
+        elif option == 8:
+            quit = True;
+    else:
+        push_data(cup, games);
 
     return 0;
 
