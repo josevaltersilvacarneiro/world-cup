@@ -10,6 +10,30 @@ import _statistics as st
 from _sort import sort_classification
 
 def _get_ranking(cup : dict, games : dict) -> dict:
+    """This function get all the registered teams and games
+    as arguments. Then it loops, generating the classifica-
+    tion until that moment. At the end, it returns this
+    ranking below.
+
+    classification = {
+        'A' : [
+            {
+                'name' : 'example_name',
+                'pt'   : 0,
+                .
+                .
+                .
+            },
+            .
+            .
+            .
+        ],
+        .
+        .
+        .
+    }
+
+    """
 
     classification : dict = { group : list() for group, teams in cup.items() };
 
@@ -19,10 +43,10 @@ def _get_ranking(cup : dict, games : dict) -> dict:
             team_data = dict();
 
             team_data['name'] = team;
-            team_data['pt'] = 0;  # Points
-            team_data['gd'] = 0;  # Goal Difference
-            team_data['gs'] = 0;  # Goals Scored
-            team_data['gc'] = 0;  # Goals Conceded
+            team_data['pt'] = 0;  # Points          #
+            team_data['gd'] = 0;  # Goal Difference #
+            team_data['gs'] = 0;  # Goals Scored    #
+            team_data['gc'] = 0;  # Goals Conceded  #
             
             for game in games[group]:
                 
