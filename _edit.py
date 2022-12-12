@@ -12,6 +12,10 @@ from _utils import (
         );
 
 def edit_team(cup : dict, games : dict) -> None:
+    """This function replaces a team registered in the group
+    by an unregistered team.
+
+    """
 
     group    : str = get_non_empty_group(cup);
 
@@ -53,7 +57,14 @@ def edit_game(cup : dict, games : dict) -> None:
                 print ('3 → The time is wrong' );
                 print ('4 → The place is wrong');
 
-                option : int = get_option([1, 2, 3, 4]);
+                option : int = get_option(
+                        [
+                            1,
+                            2,
+                            3,
+                            4,
+                        ]
+                    );
 
                 if option == 1:
                     
