@@ -49,6 +49,8 @@ def edit_game(cup : dict, games : dict) -> None:
 
                 print(f'1 → The number of goals for team {first_team} is wrong');
                 print(f'2 → The number of goals for team {second_team} is wrong');
+                print ('3 → The time is wrong' );
+                print ('4 → The place is wrong');
 
                 option : int = get_option([1, 2]);
 
@@ -63,7 +65,7 @@ def edit_game(cup : dict, games : dict) -> None:
 
                 elif option == 2:
                     
-                    number_of_goals : int = get_amount(f'Number of goals for {first_team}: ');
+                    number_of_goals : int = get_amount(f'Number of goals for {second_team}: ');
 
                     if game[1] == second_team:
                         game[3] = number_of_goals;
