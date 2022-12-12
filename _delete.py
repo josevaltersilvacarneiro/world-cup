@@ -30,9 +30,20 @@ def delete_team(cup : dict, games : dict) -> None:
         cup[group].remove(team);
 
 def delete_game(cup : dict, games : dict) -> None:
+    """This procedure allows that the user to delete
+    any match.
+
+    """
 
     group : str = get_non_empty_group(cup);
     first_team, second_team = get_two_different_teams(cup, group, False);
+
+    # Using a repetition loop, all the games looped. If find #
+    # the game typed by the user, ask the user if he wants   #
+    # to delete it. If yes, delete it and break; else break. #
+    # If when scanning all games, none are found, run the    #
+    # last statement, which shows the user that the game     #
+    # hasn't been registered yet.                            #
 
     for i, game in enumerate(games[group]):
             
