@@ -6,7 +6,7 @@ for editing the teams and the games.
 from _utils import (
             check,
             get_amount, get_option,
-            get_group, get_non_empty_group,
+            get_non_empty_group,
             get_team, get_two_different_teams,
             get_date, get_place,
         );
