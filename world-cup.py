@@ -1,7 +1,7 @@
 #!/bin/env python
 
 import _utils as ut
-from _file import *
+from _file import get_data, push_data
 import _register as rg
 import _edit as ed
 import _delete as dl
