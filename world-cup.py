@@ -235,7 +235,7 @@ def print_teams(cup : dict, games : dict) -> None:
 
 def main() -> int:
 
-    cup, games = get_data();            # Isso carrega os dados do arquivo, caso o arquivo exista
+    cup, games = get_data(); # Get the data from the file
 
     quit : bool = False;
     while not quit:
@@ -286,7 +286,7 @@ def main() -> int:
         elif option == 8:
             quit = True;
     else:
-        push_data(cup, games);
+        push_data(cup, games); # push data to the file
 
     ut.clean();
 
