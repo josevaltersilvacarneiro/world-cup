@@ -16,6 +16,8 @@ def _register_team(cup : dict) -> None:
 
     groups : list = cup.keys();
 
+    # Run until find an incomplete group #
+
     while cup[( group := get_group(groups) )].__len__() > 3:
         print(f'The group {group} is already complete');
 
@@ -73,6 +75,9 @@ def register_teams(cup : dict) -> None:
     
     max_amount : int = number_of_teams_to_register(cup);
 
+    # As long as amount of teams typed by the user is higher #
+    # than the max missing quantity, run; else break         #
+
     while ( amount_of_teams := get_amount('Number of teams: ') ) > max_amount:
         print(f'Only {max_amount} teams left to register');
 
@@ -82,6 +87,9 @@ def register_teams(cup : dict) -> None:
 def register_games(cup : dict, games : dict) -> None:
     
     max_amount : int = number_of_games_to_register(cup, games);
+
+    # As long as amount of games typed by the user is higher #
+    # than the max missing quantity, run; else break         #
 
     while ( amount_of_games := get_amount('Number of games: ') ) > max_amount:
         print(f'Only {max_amount} games left to register');
