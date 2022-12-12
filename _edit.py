@@ -69,12 +69,7 @@ def edit_game(cup : dict, games : dict) -> None:
                 print ('4 → The place is wrong');
 
                 option : int = get_option(
-                        [
-                            1,
-                            2,
-                            3,
-                            4,
-                        ]
+                        [1, 2, 3, 4]
                     );
 
                 if option == 1:

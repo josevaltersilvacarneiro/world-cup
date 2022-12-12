@@ -12,7 +12,7 @@ from _utils import (
 def delete_team(cup : dict, games : dict) -> None:
 
     group : str = get_non_empty_group(cup);
-    team : str = get_team(cup, group, False);
+    team  : str = get_team(cup, group, False);
 
     message : str = f'Do you really want to delete {team} from the group {group}';
 
