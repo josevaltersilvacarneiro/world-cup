@@ -40,8 +40,8 @@ def edit_game(cup : dict, games : dict) -> None:
     for game in games[group]:
         
         if  (
-                    (game[0] == first_team and game[1] == second_team) or
-                    (game[0] == second_team and game[1] == first_team)
+                (game[0] == first_team and game[1] == second_team) or
+                (game[0] == second_team and game[1] == first_team)
             ):
                 
             message : str = f'Do you really want to modify the game {first_team} vs {second_team}';
