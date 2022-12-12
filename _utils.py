@@ -4,6 +4,7 @@
 
 from datetime import date, time
 from os import system
+import platform as pl
 
 from _file import get_countries
 
@@ -118,7 +119,10 @@ def clean() -> None:
 
     # This procedure cleans the screen
 
-    system('clear');
+    if pl.system() == 'Linux':
+        system('clear');
+    elif pl.system() == 'Windows':
+        system('cls');
 
 def check(message : str) -> bool:
     """This function waits for the user
