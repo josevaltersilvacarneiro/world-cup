@@ -18,6 +18,10 @@ def delete_team(cup : dict, games : dict) -> None:
 
     if check(message):
 
+        # Chain Deletion                    #
+        # The foreing key must be deleted   #
+        # before the primary key            #
+
         for i, game in enumerate(games[group]):
 
             if game[0] == team or game[1] == team:
