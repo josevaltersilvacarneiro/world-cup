@@ -216,7 +216,7 @@ def main() -> int:
     quit : bool = False;
     while not quit:
 
-        options : list = [6, 7];
+        options : list = [6, 7, 8];
         
         ut.clean();
 
