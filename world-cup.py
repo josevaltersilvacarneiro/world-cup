@@ -264,6 +264,8 @@ def main() -> int:
     else:
         push_data(cup, games);
 
+    ut.clean();
+
     return 0;
 
 if __name__ == '__main__':
