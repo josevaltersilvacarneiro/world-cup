@@ -52,9 +52,23 @@ def edit_game(cup : dict, games : dict) -> None:
 
                 option : int = get_option([1, 2]);
 
-                if option == 1 or option == 2:
-                    game[option + 1] = get_amount(f'goals for team {option}');
+                if option == 1:
+                    
+                    number_of_goals : int = get_amount(f'Number of goals for {first_team}: ');
 
+                    if game[0] == first_team:
+                        game[2] = number_of_goals;
+                    else:
+                        game[3] = number_of_goals;
+
+                elif option == 2:
+                    
+                    number_of_goals : int = get_amount(f'Number of goals for {first_team}: ');
+
+                    if game[1] == second_team:
+                        game[3] = number_of_goals;
+                    else:
+                        game[2] = number_of_goals;
             break;
     else:
         print('The game that you\'re trying to edit hasn\'t been registered yet');
