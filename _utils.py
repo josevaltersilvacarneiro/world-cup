@@ -3,6 +3,7 @@
 """
 
 from datetime import date, time
+from os import system
 
 from _file import get_countries
 
@@ -112,6 +113,12 @@ def _max_number_of_games_registered(cup : dict) -> int:
 
 #--------------------------------------------------#
 #--------------------- Public ---------------------#
+
+def clean() -> None:
+
+    # This procedure cleans the screen
+
+    system('clear');
 
 def check(message : str) -> bool:
     """This function waits for the user
