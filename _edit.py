@@ -8,6 +8,7 @@ from _utils import (
             get_amount, get_option,
             get_group, get_non_empty_group,
             get_team, get_two_different_teams,
+            get_date, get_place,
         );
 
 def edit_team(cup : dict, games : dict) -> None:
@@ -52,7 +53,7 @@ def edit_game(cup : dict, games : dict) -> None:
                 print ('3 → The time is wrong' );
                 print ('4 → The place is wrong');
 
-                option : int = get_option([1, 2]);
+                option : int = get_option([1, 2, 3, 4]);
 
                 if option == 1:
                     
@@ -71,6 +72,12 @@ def edit_game(cup : dict, games : dict) -> None:
                         game[3] = number_of_goals;
                     else:
                         game[2] = number_of_goals;
+
+                elif option == 3:
+                    game[4] = get_date();
+                elif option == 4:
+                    game[5] = get_place();
+
             break;
     else:
         print('The game that you\'re trying to edit hasn\'t been registered yet');
