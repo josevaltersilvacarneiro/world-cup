@@ -36,6 +36,9 @@ def _register_game(cup : dict, games : dict) -> None:
 
         group : str = get_non_empty_group(cup);
 
+        # Why is it necessary?               #
+        # Send me an email and I'll answer.  #
+
         if games[group].__len__() == 6:
             print('All games in this group already were registered');
         elif games[group].__len__() == max_number_of_games_registered_in_the_group(cup, group):
@@ -47,6 +50,12 @@ def _register_game(cup : dict, games : dict) -> None:
     while not found:
 
         first_team, second_team = get_two_different_teams(cup, group, False);
+
+        # Using a repetition loop, all the games looped. If #
+        # find the game typed by the user, exit the loop    #
+        # without executing the last statement; else conti- #
+        # nue until run the last statement, which makes the #
+        # 'found' flag true.                                #
 
         for game in games[group]:
 
@@ -62,19 +71,23 @@ def _register_game(cup : dict, games : dict) -> None:
     num_of_goals_team_one : int = get_amount(f'Number of goals for {first_team}: ');
     num_of_goals_team_two : int = get_amount(f'Number of goals for {second_team}: ');
 
+    # match attributes
+
     game = [
-            first_team,
-            second_team,
-            num_of_goals_team_one,
-            num_of_goals_team_two,
-            get_date(),
-            get_place(),
+            first_team,             # first team name                    #
+            second_team,            # second team name
+            num_of_goals_team_one,  # number of goals for the first team #
+            num_of_goals_team_two,  # number of ...          second team #
+            get_date(),             # date and time of the match         #
+            get_place(),            # stadium where the match was played #
         ];
+
+    # Add the item - match - to the corresponding group
 
     games[group].append(game);
 
-#--------------------------------------------------------#
-#------------------------ public ------------------------#
+#------------------------------------------------------------------------#
+#-------------------------------- public --------------------------------#
 
 def register_teams(cup : dict) -> None:
     
@@ -85,6 +98,8 @@ def register_teams(cup : dict) -> None:
 
     while ( amount_of_teams := get_amount('Number of teams: ') ) > max_amount:
         print(f'Only {max_amount} teams left to register');
+
+    # Register how many teams the user typed #
 
     for i in range(amount_of_teams):
         _register_team(cup);
@@ -99,6 +114,8 @@ def register_games(cup : dict, games : dict) -> None:
     while ( amount_of_games := get_amount('Number of games: ') ) > max_amount:
         print(f'Only {max_amount} games left to register');
     
+    # Register how many games the user typed #
+
     for i in range(amount_of_games):
         _register_game(cup, games);
 
