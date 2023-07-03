@@ -178,16 +178,20 @@ def get_non_empty_group(data : dict) -> str:
 
 def get_team(cup : dict, group : str, confirm : bool = True, message : str = 'Type the team: ') -> str:
 
-    all_teams_registered : list = _get_all_teams_registered(cup);
-
-    if confirm:
-        while ( team := _get_country(message) ) in all_teams_registered:
-            print(f'The team {team} is already registered');
-    else:
+    def get_registered_team():
         while ( team := _get_country(message) ) not in cup[group]:
-            print(f'The team {team} isn\'t in group {group}');
+            print(f'The team {team} isn\'t in group {group}')
 
-    return team;
+        return team
+
+    def get_unregistered_team():
+        all_teams_registered : list = _get_all_teams_registered(cup);
+        while ( team := _get_country(message) ) in all_teams_registered:
+            print(f'The team {team} is already registered')
+
+        return team
+
+    return get_unregistered_team() if confirm else get_registered_team()
 
 def get_two_different_teams(cup : dict, group : str, confirm : bool = True) -> tuple:
     
